@@ -7,7 +7,7 @@ local actions = require 'telescope.actions'
 local action_state = require 'telescope.actions.state'
 local conf = require('telescope.config').values
 
-M.list_tabs = function()
+M.list_tabs = function(opts)
 	local res = {}
 	for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
 		local file_names = {}
@@ -22,7 +22,7 @@ M.list_tabs = function()
 		table.insert(res, { file_names, file_ids, tid })
 	end
 	pickers
-		.new({}, {
+		.new(opts, {
 			prompt_title = 'Tabs',
 			finder = finders.new_table {
 				results = res,
