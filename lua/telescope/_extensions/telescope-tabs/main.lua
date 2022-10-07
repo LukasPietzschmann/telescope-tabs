@@ -40,7 +40,7 @@ M.list_tabs = function()
 				actions.select_default:replace(function()
 					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
-					vim.api.nvim_set_current_tabpage(selection.value[2])
+					vim.api.nvim_set_current_tabpage(selection.value[3])
 				end)
 				return true
 			end,
