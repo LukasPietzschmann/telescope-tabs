@@ -33,6 +33,7 @@ local default_conf = {
 		local entry_string = table.concat(file_names, ', ')
 		return string.format('%d: %s', tab_id, entry_string)
 	end,
+	show_preview = true,
 }
 
 M.conf = default_conf
@@ -97,7 +98,7 @@ M.list_tabs = function(opts)
 				end)
 				return true
 			end,
-			previewer = conf.file_previewer {},
+			previewer = opts.show_preview and conf.file_previewer {} or nil,
 		})
 		:find()
 end
