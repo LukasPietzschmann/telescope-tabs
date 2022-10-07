@@ -12,7 +12,7 @@ Or straight from the plugin's path with lua
 :lua require('telescope-tabs').list_tabs()
 ```
 
-You can press `C-d` on any Item in the picker to close the tab (respectively all windows in it).
+You can press `C-d` on any Item in the picker to close the tab (respectively all windows in it). To change the keybinding, look at [configure](https://github.com/LukasPietzschmann/telescope-tabs#configure).
 
 ## Installation
 Install with your favorite Neovim package manager.
@@ -47,3 +47,10 @@ This controls whether a preview is shown or not. The default is `true`:
 ```lua
 show_preview = true,
 ```
+
+### close_tab_shortcut
+This shortcut allows you to close a selected tabs right from the picker. The default is...
+```lua
+close_tab_shortcut = 'C-d',
+```
+Note, that this value does not get parsed or checked, so it should follow the regular format for keybindings.

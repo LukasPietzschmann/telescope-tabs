@@ -34,6 +34,7 @@ local default_conf = {
 		return string.format('%d: %s', tab_id, entry_string)
 	end,
 	show_preview = true,
+	close_tab_shortcut = 'C-d',
 }
 
 M.conf = default_conf
@@ -83,7 +84,7 @@ M.list_tabs = function(opts)
 					local selection = action_state.get_selected_entry()
 					vim.api.nvim_set_current_tabpage(selection.value[5])
 				end)
-				map('i', '<C-d>', function()
+				map('i', opts.close_tab_shortcut, function()
 					local current_picker = action_state.get_current_picker(prompt_bufnr)
 					local current_entry = action_state:get_selected_entry()
 					if vim.api.nvim_get_current_tabpage() == current_entry.value[5] then
