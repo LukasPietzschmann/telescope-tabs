@@ -9,14 +9,14 @@ local conf = require('telescope.config').values
 M.list_tabs = function()
 	local res = {}
 	for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
-		local paths = ''
+		local file_names = {}
 		for _, wid in ipairs(vim.api.nvim_tabpage_list_wins(tid)) do
 			local bid = vim.api.nvim_win_get_buf(wid)
 			local path = vim.api.nvim_buf_get_name(bid)
 			local file_name = vim.fn.fnamemodify(path, ':t')
-			paths = paths .. file_name
+			table.insert(file_names, file_name)
 		end
-		table.insert(res, { paths, tid })
+		table.insert(res, { table.concat(file_names, ', '), tid })
 	end
 	pickers
 		.new({}, {
@@ -24,7 +24,7 @@ M.list_tabs = function()
 			finder = finders.new_table {
 				results = res,
 				entry_maker = function(entry)
-					return { value = entry, display = entry[1], ordinal = entry[1] }
+					return { value = entry, display = string.format('%d: %s', entry[2], entry[1]), ordinal = entry[1] }
 				end,
 			},
 			sorter = conf.generic_sorter {},
