@@ -34,7 +34,7 @@ local default_conf = {
 		return string.format('%d: %s', tab_id, entry_string)
 	end,
 	show_preview = true,
-	close_tab_shortcut = 'C-d',
+	close_tab_shortcut = '<C-d>',
 }
 
 M.conf = default_conf
