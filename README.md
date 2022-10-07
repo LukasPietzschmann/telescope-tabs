@@ -1,6 +1,10 @@
 # telescope-tabs
 Fly through your tabs in neovim ✈️
 
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/49213919/194560309-dafa805e-3cfc-44ed-b90f-445838e2f0d8.png" width="550"  />
+</p>
+
 ## Usage
 You can show the picker from neovim's cmd-line by executing
 ```
