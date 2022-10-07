@@ -16,7 +16,7 @@ M.list_tabs = function()
 			local file_name = vim.fn.fnamemodify(path, ':t')
 			table.insert(file_names, file_name)
 		end
-		table.insert(res, { table.concat(file_names, ', '), tid })
+		table.insert(res, { file_names, tid })
 	end
 	pickers
 		.new({}, {
@@ -24,7 +24,12 @@ M.list_tabs = function()
 			finder = finders.new_table {
 				results = res,
 				entry_maker = function(entry)
-					return { value = entry, display = string.format('%d: %s', entry[2], entry[1]), ordinal = entry[1] }
+					local entry_string = table.concat(entry[1], ', ')
+					return {
+						value = entry,
+						display = string.format('%d: %s', entry[2], entry_string),
+						ordinal = entry_string,
+					}
 				end,
 			},
 			sorter = conf.generic_sorter {},
