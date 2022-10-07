@@ -44,7 +44,7 @@ M.setup = function(opts)
 end
 
 M.list_tabs = function(opts)
-	opts = (is_empty_table(opts) or opts == nil) and M.conf or opts
+	opts = vim.tbl_deep_extend('force', M.conf, opts)
 	local res = {}
 	for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
 		local file_names = {}
