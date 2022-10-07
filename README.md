@@ -12,6 +12,8 @@ Or straight from the plugin's path with lua
 :lua require('telescope-tabs').list_tabs()
 ```
 
+You can press `C-d` on any Item in the picker to close the tab (respectively all windows in it).
+
 ## Installation
 Install with your favorite Neovim package manager.
 
