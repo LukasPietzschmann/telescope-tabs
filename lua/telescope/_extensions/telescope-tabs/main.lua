@@ -1,4 +1,22 @@
-local M = {}
+local is_empty_table = function(t)
+	if t == nil then
+		return true
+	end
+	return next(t) == nil
+end
+
+local normalize = function(config, existing)
+	local conf = existing
+	if is_empty_table(config) then
+		return conf
+	end
+
+	for k, v in pairs(config) do
+		conf[k] = v
+	end
+
+	return conf
+end
 
 local pickers = require 'telescope.pickers'
 local finders = require 'telescope.finders'
@@ -6,7 +24,25 @@ local actions = require 'telescope.actions'
 local action_state = require 'telescope.actions.state'
 local conf = require('telescope.config').values
 
+local M = {
+	config = {},
+}
+
+local default_conf = {
+	entry_formatter = function(tab_id, buffer_ids, file_names, file_paths)
+		local entry_string = table.concat(file_names, ', ')
+		return string.format('%d: %s', tab_id, entry_string)
+	end,
+}
+
+M.conf = default_conf
+
+M.setup = function(opts)
+	normalize(opts, M.conf)
+end
+
 M.list_tabs = function(opts)
+	opts = (is_empty_table(opts) or opts == nil) and M.conf or opts
 	local res = {}
 	for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
 		local file_names = {}
@@ -30,11 +66,11 @@ M.list_tabs = function(opts)
 			finder = finders.new_table {
 				results = res,
 				entry_maker = function(entry)
-					local entry_string = table.concat(entry[1], ', ')
+					local entry_string = opts.entry_formatter(entry[5], entry[3], entry[1], entry[2])
 					return {
 						value = entry,
 						path = entry[2][1],
-						display = string.format('%d: %s', entry[5], entry_string),
+						display = entry_string,
 						ordinal = entry_string,
 					}
 				end,

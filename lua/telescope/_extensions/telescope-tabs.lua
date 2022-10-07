@@ -6,7 +6,7 @@ if not has_telescope then
 end
 
 return telescope.register_extension {
-	setup = function(ext_config, config) end,
+	setup = TelescopeTabs.setup,
 	exports = {
 		list_tabs = TelescopeTabs.list_tabs,
 	},

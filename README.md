@@ -21,6 +21,23 @@ Example with packer.nvim:
 ```lua
 use {
   'LukasPietzschmann/telescope-tabs',
-  requires = { 'nvim-telescope/telescope.nvim' }
+  requires = { 'nvim-telescope/telescope.nvim' },
+  config = function()
+    require'telescope-tabs'.setup{
+      -- Your custom config :^)
+    }
+  end
 }
 ```
+## Configure
+Options can be set by calling the setup function. The following things can be changed:
+
+### entry_formatter
+This changes how a tab is represented in the picker. By default the following function is used:
+```lua
+entry_formatter = function(tab_id, buffer_ids, file_names, file_paths)
+	local entry_string = table.concat(file_names, ', ')
+	return string.format('%d: %s', tab_id, entry_string)
+end,
+```
+To alter this behaviour, just assign your own function.
