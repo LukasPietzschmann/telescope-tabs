@@ -2,6 +2,7 @@ local M = {}
 
 local pickers = require 'telescope.pickers'
 local finders = require 'telescope.finders'
+local previewers = require 'telescope.previewers'
 local actions = require 'telescope.actions'
 local action_state = require 'telescope.actions.state'
 local conf = require('telescope.config').values
@@ -10,13 +11,15 @@ M.list_tabs = function()
 	local res = {}
 	for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
 		local file_names = {}
+		local file_ids = {}
 		for _, wid in ipairs(vim.api.nvim_tabpage_list_wins(tid)) do
 			local bid = vim.api.nvim_win_get_buf(wid)
 			local path = vim.api.nvim_buf_get_name(bid)
 			local file_name = vim.fn.fnamemodify(path, ':t')
 			table.insert(file_names, file_name)
+			table.insert(file_ids, bid)
 		end
-		table.insert(res, { file_names, tid })
+		table.insert(res, { file_names, file_ids, tid })
 	end
 	pickers
 		.new({}, {
@@ -27,7 +30,7 @@ M.list_tabs = function()
 					local entry_string = table.concat(entry[1], ', ')
 					return {
 						value = entry,
-						display = string.format('%d: %s', entry[2], entry_string),
+						display = string.format('%d: %s', entry[3], entry_string),
 						ordinal = entry_string,
 					}
 				end,
@@ -41,6 +44,13 @@ M.list_tabs = function()
 				end)
 				return true
 			end,
+			--TODO: use conf.file_previewer
+			previewer = previewers.new_buffer_previewer {
+				define_preview = function(self, entry)
+					local output = vim.api.nvim_buf_get_lines(entry.value[2][1], 0, -1, false)
+					vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, output)
+				end,
+			},
 		})
 		:find()
 end
