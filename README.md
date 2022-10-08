@@ -55,6 +55,6 @@ show_preview = true,
 ### close_tab_shortcut
 This shortcut allows you to close a selected tabs right from the picker. The default is...
 ```lua
-close_tab_shortcut = 'C-d',
+close_tab_shortcut = '<C-d>',
 ```
 Note, that this value does not get parsed or checked, so it should follow the regular format for keybindings.
