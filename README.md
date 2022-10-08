@@ -58,3 +58,6 @@ This shortcut allows you to close a selected tabs right from the picker. The def
 close_tab_shortcut = '<C-d>',
 ```
 Note, that this value does not get parsed or checked, so it should follow the regular format for keybindings.
+
+## Documentation
+See [telescope-tabs.txt](https://github.com/LukasPietzschmann/telescope-tabs/blob/master/doc/telescope-tabs.txt).

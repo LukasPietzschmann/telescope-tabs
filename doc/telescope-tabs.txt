@@ -1,0 +1,74 @@
+telescope-tabs.txt                             Fly through your tabs in neovim
+
+Author:  Lukas Pietzschmann <https://lukas.pietzschmann.org>
+Repo:    https://github.com/LukasPietzschmann/telescope-tabs
+License: BSD-3-Clause
+
+==============================================================================
+INTRODUCTION                                                  *telescope-tabs*
+
+telescope-tabs is a small extension for telescope.nvim. It makes it more
+convenient to switch between tabs in a fast way.
+Note that this extension wont work well with buffer-line extensions, as it
+does not show single buffers (like :Telescope buffers does). Only "real" tabs
+are displayed!
+
+==============================================================================
+CONFIGURATION                                                  *configuration*
+
+Call the setup function with a table as the argument to override the default
+configuration.
+
+require'telescope-tabs'.setup {
+    -- This function is used to convert a tab to a string that is then
+    -- displayed in telescopes picker
+    -- tab_id: id of the tab. This id can be passed to neovims api in order
+    --         to get information about the tab.
+    -- buffer_ids: A list of ids for every buffer opened in the tab. Those
+    --             ids can be passed to neovims api in order to get
+    --             information about the buffer.
+    -- file_names: A list of names (strings) for every buffer opened in the
+    --             tab.
+    -- file_paths: A list of paths (strings) for every buffer opened in the
+    --             tab.
+    -- buffer_ids, file_names and file_paths contain their information in
+    -- the same order. So buffer_ids[1], file_names[1] and file_paths[1]
+    -- refer to the same buffer.
+    entry_formatter = function(tab_id, buffer_ids, file_names, file_paths)
+        local entry_string = table.concat(file_names, ', ')
+        return string.format('%d: %s', tab_id, entry_string)
+    end,
+
+    -- This boolean value controls whether telescopes previewer is shown, or
+    -- not.
+    show_preview = true,
+
+    -- This shortcut can be pressed to close the selected tab (and all buffers
+    -- opened in it). It's value has to be a valid neovim-shortcut.
+    close_tab_shortcut = '<C-d>',
+}
+
+==============================================================================
+USAGE                                                   *telescope-tabs-usage*
+
+:Telescope telescope-tabs list_tabs                                *list_tabs*
+This opens the telescope picker that displays all currently opened tabs.
+You can pass arguments passed to this function in order to configure the picker
+itself. See the telescope docs for more information.
+
+
+==============================================================================
+API                                                        *telescope-tabs-api*
+
+The available command can also be accessed from lua.
+
+local tabs = require'telescope-tabs'
+
+tabs.setup(opts: {table})
+    See configuration
+
+tabs.list_tabs(opts: {table})
+    This opens the telescope picker that displays all currently opened tabs.
+    You can pass arguments passed to this function in order to configure the picker
+    itself. See the telescope docs for more information.
+    opts are directly passed to telescope.
