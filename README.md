@@ -24,13 +24,13 @@ Install with your favorite Neovim package manager.
 Example with packer.nvim:
 ```lua
 use {
-  'LukasPietzschmann/telescope-tabs',
-  requires = { 'nvim-telescope/telescope.nvim' },
-  config = function()
-    require'telescope-tabs'.setup{
-      -- Your custom config :^)
-    }
-  end
+	'LukasPietzschmann/telescope-tabs',
+	requires = { 'nvim-telescope/telescope.nvim' },
+	config = function()
+		require'telescope-tabs'.setup{
+			-- Your custom config :^)
+		}
+	end
 }
 ```
 ## Configure
