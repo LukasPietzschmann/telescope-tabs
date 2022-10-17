@@ -9,6 +9,8 @@ INTRODUCTION                                                  *telescope-tabs*
 
 telescope-tabs is a small extension for telescope.nvim. It makes it more
 convenient to switch between tabs in a fast way.
+Additionally you can switch back to your last used tab immediately, without
+having to open the telescope-picker.
 Note that this extension wont work well with buffer-line extensions, as it
 does not show single buffers (like :Telescope buffers does). Only "real" tabs
 are displayed!
@@ -56,6 +58,11 @@ This opens the telescope picker that displays all currently opened tabs.
 You can pass arguments passed to this function in order to configure the picker
 itself. See the telescope docs for more information.
 
+:lua require('telescope-tabs').go_to_previous()                *go_to_previous*
+This function opens the last used tab immediately. This works by registering an
+auto-command for the 'TabEnter' event that keeps track of your tab-navigations.
+So this function does not only work if you switch tabs using the picker, it
+also functions just fine when navigating using neovims tab movement methods.
 
 ==============================================================================
 API                                                        *telescope-tabs-api*
@@ -69,6 +76,13 @@ tabs.setup(opts: {table})
 
 tabs.list_tabs(opts: {table})
     This opens the telescope picker that displays all currently opened tabs.
-    You can pass arguments passed to this function in order to configure the picker
-    itself. See the telescope docs for more information.
+    You can pass arguments passed to this function in order to configure the
+    picker itself. See the telescope docs for more information.
     opts are directly passed to telescope.
+
+tabs.go_to_revious()
+    This function opens the last used tab immediately. This works by registering
+    an auto-command for the 'TabEnter' event that keeps track of your
+    tab-navigations. So this function does not only work if you switch tabs using
+    the picker, it also functions just fine when navigating using neovims tab
+    movement methods.

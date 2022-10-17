@@ -43,6 +43,21 @@ M.setup = function(opts)
 	normalize(opts, M.conf)
 end
 
+local current_index = vim.api.nvim_get_current_tabpage()
+local last_index = current_index
+
+vim.api.nvim_create_autocmd('TabEnter', {
+	group = vim.api.nvim_create_augroup('WatchTabs', { clear = true }),
+	callback = function()
+		last_index = current_index
+		current_index = vim.api.nvim_get_current_tabpage()
+	end,
+})
+
+M.go_to_previous = function()
+	vim.api.nvim_set_current_tabpage(last_index)
+end
+
 M.list_tabs = function(opts)
 	opts = vim.tbl_deep_extend('force', M.conf, opts or {})
 	local res = {}
