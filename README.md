@@ -20,7 +20,7 @@ You can press `C-d` on any Item in the picker to close the tab (respectively all
 
 But `telescope-tabs` does not only provide a picker! You can also call
 ```viml
-:lua require('telescope-tabs').go_to_previous()'
+:lua require('telescope-tabs').go_to_previous()
 ```
 to switch to the last opened tab immediately.
 This does not only work when switching tabs with this extension, but also when you use Neovims builtin tab movement methods.
