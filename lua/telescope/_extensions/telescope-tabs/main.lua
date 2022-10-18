@@ -24,6 +24,20 @@ local actions = require 'telescope.actions'
 local action_state = require 'telescope.actions.state'
 local conf = require('telescope.config').values
 
+local close_tab = function(bufnr)
+	local current_picker = action_state.get_current_picker(bufnr)
+	local current_entry = action_state:get_selected_entry()
+	if vim.api.nvim_get_current_tabpage() == current_entry.value[5] then
+		print 'You cannot close the currently visible tab :('
+		return
+	end
+	current_picker:delete_selection(function(selection)
+		for _, wid in ipairs(selection.value[4]) do
+			vim.api.nvim_win_close(wid, false)
+		end
+	end)
+end
+
 local M = {
 	config = {},
 }
@@ -34,7 +48,8 @@ local default_conf = {
 		return string.format('%d: %s', tab_id, entry_string)
 	end,
 	show_preview = true,
-	close_tab_shortcut = '<C-d>',
+	close_tab_shortcut_i = '<C-d>',
+	close_tab_shortcut_n = 'D',
 }
 
 M.conf = default_conf
@@ -99,18 +114,11 @@ M.list_tabs = function(opts)
 					local selection = action_state.get_selected_entry()
 					vim.api.nvim_set_current_tabpage(selection.value[5])
 				end)
-				map('i', opts.close_tab_shortcut, function()
-					local current_picker = action_state.get_current_picker(prompt_bufnr)
-					local current_entry = action_state:get_selected_entry()
-					if vim.api.nvim_get_current_tabpage() == current_entry.value[5] then
-						print 'You cannot close the currently visible tab :('
-						return
-					end
-					current_picker:delete_selection(function(selection)
-						for _, wid in ipairs(selection.value[4]) do
-							vim.api.nvim_win_close(wid, false)
-						end
-					end)
+				map('i', opts.close_tab_shortcut_i, function()
+					close_tab(prompt_bufnr)
+				end)
+				map('n', opts.close_tab_shortcut_n, function()
+					close_tab(prompt_bufnr)
 				end)
 				return true
 			end,

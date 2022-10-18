@@ -16,7 +16,7 @@ Or straight from the plugin's path with lua
 :lua require('telescope-tabs').list_tabs()
 ```
 
-You can press `C-d` on any Item in the picker to close the tab (respectively all windows in it). To change the keybinding, look at [configure](https://github.com/LukasPietzschmann/telescope-tabs#configure).
+You can press `C-d` (insert mode) or `D` (normal mode) on any Item in the picker to close the tab (respectively all windows in it). To change the keybinding, look at [configure](https://github.com/LukasPietzschmann/telescope-tabs#configure).
 
 But `telescope-tabs` does not only provide a picker! You can also call
 ```viml
@@ -62,11 +62,12 @@ show_preview = true,
 ```
 
 ### close_tab_shortcut
-This shortcut allows you to close a selected tabs right from the picker. The default is...
+These shortcuts allow you to close a selected tabs right from the picker. The defaults are...
 ```lua
-close_tab_shortcut = '<C-d>',
+close_tab_shortcut_i = '<C-d>', -- if you're in insert mode
+close_tab_shortcut_n = 'D',     -- if you're in normal mode
 ```
-Note, that this value does not get parsed or checked, so it should follow the regular format for keybindings.
+Note, that their values do not get parsed or checked, so they should follow the regular format for keybindings.
 
 ## Documentation
 See [telescope-tabs.txt](https://github.com/LukasPietzschmann/telescope-tabs/blob/master/doc/telescope-tabs.txt).

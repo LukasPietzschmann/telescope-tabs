@@ -45,9 +45,10 @@ require'telescope-tabs'.setup {
     -- not.
     show_preview = true,
 
-    -- This shortcut can be pressed to close the selected tab (and all buffers
-    -- opened in it). It's value has to be a valid neovim-shortcut.
-    close_tab_shortcut = '<C-d>',
+    -- These shortcuts can be pressed to close the selected tab (and all buffers
+    -- opened in it). Their values have to be valid neovim-shortcuts.
+    close_tab_shortcut_i = '<C-d>', -- if you're in insert mode
+    close_tab_shortcut_n = 'D',     -- if you're in normal mode
 }
 
 ==============================================================================
