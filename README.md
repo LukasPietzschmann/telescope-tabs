@@ -75,7 +75,7 @@ These shortcuts allow you to close a selected tabs right from the picker. The de
 close_tab_shortcut_i = '<C-d>', -- if you're in insert mode
 close_tab_shortcut_n = 'D',     -- if you're in normal mode
 ```
-Note, that their values do not get parsed or checked, so they should follow the regular format for keybindings.
+Note, that their value do not get parsed or checked, so they should follow the regular format for keybindings.
 
 ## Documentation
 See [telescope-tabs.txt](https://github.com/LukasPietzschmann/telescope-tabs/blob/master/doc/telescope-tabs.txt).
