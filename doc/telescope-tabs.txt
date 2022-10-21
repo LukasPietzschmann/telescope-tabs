@@ -41,6 +41,24 @@ require'telescope-tabs'.setup {
         return string.format('%d: %s', tab_id, entry_string)
     end,
 
+    -- This function is used to convert a tab to a string that is then
+    -- used to sort all entries
+    -- tab_id: id of the tab. This id can be passed to neovims api in order
+    --         to get information about the tab.
+    -- buffer_ids: A list of ids for every buffer opened in the tab. Those
+    --             ids can be passed to neovims api in order to get
+    --             information about the buffer.
+    -- file_names: A list of names (strings) for every buffer opened in the
+    --             tab.
+    -- file_paths: A list of paths (strings) for every buffer opened in the
+    --             tab.
+    -- buffer_ids, file_names and file_paths contain their information in
+    -- the same order. So buffer_ids[1], file_names[1] and file_paths[1]
+    -- refer to the same buffer.
+    entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths)
+        return table.concat(file_names, ' ')
+    end,
+
     -- This boolean value controls whether telescopes previewer is shown, or
     -- not.
     show_preview = true,

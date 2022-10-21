@@ -47,6 +47,9 @@ local default_conf = {
 		local entry_string = table.concat(file_names, ', ')
 		return string.format('%d: %s', tab_id, entry_string)
 	end,
+	entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths)
+		return table.concat(file_names, ' ')
+	end,
 	show_preview = true,
 	close_tab_shortcut_i = '<C-d>',
 	close_tab_shortcut_n = 'D',
@@ -99,11 +102,12 @@ M.list_tabs = function(opts)
 				results = res,
 				entry_maker = function(entry)
 					local entry_string = opts.entry_formatter(entry[5], entry[3], entry[1], entry[2])
+					local ordinal_string = opts.entry_ordinal(entry[5], entry[3], entry[1], entry[2])
 					return {
 						value = entry,
 						path = entry[2][1],
 						display = entry_string,
-						ordinal = entry_string,
+						ordinal = ordinal_string,
 					}
 				end,
 			},
