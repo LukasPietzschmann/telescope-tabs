@@ -73,7 +73,11 @@ vim.api.nvim_create_autocmd('TabEnter', {
 })
 
 M.go_to_previous = function()
-	vim.api.nvim_set_current_tabpage(last_index)
+	if vim.api.nvim_tabpage_is_valid(last_index) then
+		vim.api.nvim_set_current_tabpage(last_index)
+	else
+		print 'No previous tab to go to'
+	end
 end
 
 M.list_tabs = function(opts)
