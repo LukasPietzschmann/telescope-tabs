@@ -33,10 +33,12 @@ require'telescope-tabs'.setup {
     --             tab.
     -- file_paths: A list of paths (strings) for every buffer opened in the
     --             tab.
+    -- is_current: Boolean value, true if it is the current tab.
+    --
     -- buffer_ids, file_names and file_paths contain their information in
     -- the same order. So buffer_ids[1], file_names[1] and file_paths[1]
     -- refer to the same buffer.
-    entry_formatter = function(tab_id, buffer_ids, file_names, file_paths)
+    entry_formatter = function(tab_id, buffer_ids, file_names, file_paths, is_current)
         local entry_string = table.concat(file_names, ', ')
         return string.format('%d: %s', tab_id, entry_string)
     end,
@@ -53,10 +55,12 @@ require'telescope-tabs'.setup {
     --             tab.
     -- file_paths: A list of paths (strings) for every buffer opened in the
     --             tab.
+    -- is_current: Boolean value, true if it is the current tab.
+    --
     -- buffer_ids, file_names and file_paths contain their information in
     -- the same order. So buffer_ids[1], file_names[1] and file_paths[1]
     -- refer to the same buffer.
-    entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths)
+    entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current)
         return table.concat(file_names, ' ')
     end,
 

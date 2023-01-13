@@ -43,11 +43,11 @@ local M = {
 }
 
 local default_conf = {
-	entry_formatter = function(tab_id, buffer_ids, file_names, file_paths)
+	entry_formatter = function(tab_id, buffer_ids, file_names, file_paths, is_current)
 		local entry_string = table.concat(file_names, ', ')
 		return string.format('%d: %s', tab_id, entry_string)
 	end,
-	entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths)
+	entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current)
 		return table.concat(file_names, ' ')
 	end,
 	show_preview = true,
@@ -102,7 +102,7 @@ M.list_tabs = function(opts)
 		if is_current then
 			current_tab.index = index
 		end
-		table.insert(res, { file_names, file_paths, file_ids, window_ids, tid })
+		table.insert(res, { file_names, file_paths, file_ids, window_ids, tid, is_current })
 	end
 	pickers
 		.new(opts, {
@@ -110,8 +110,8 @@ M.list_tabs = function(opts)
 			finder = finders.new_table {
 				results = res,
 				entry_maker = function(entry)
-					local entry_string = opts.entry_formatter(entry[5], entry[3], entry[1], entry[2])
-					local ordinal_string = opts.entry_ordinal(entry[5], entry[3], entry[1], entry[2])
+					local entry_string = opts.entry_formatter(entry[5], entry[3], entry[1], entry[2], entry[6])
+					local ordinal_string = opts.entry_ordinal(entry[5], entry[3], entry[1], entry[2], entry[6])
 					return {
 						value = entry,
 						path = entry[2][1],
