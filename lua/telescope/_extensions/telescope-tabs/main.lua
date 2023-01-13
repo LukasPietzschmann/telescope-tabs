@@ -83,11 +83,13 @@ end
 M.list_tabs = function(opts)
 	opts = vim.tbl_deep_extend('force', M.conf, opts or {})
 	local res = {}
-	for _, tid in ipairs(vim.api.nvim_list_tabpages()) do
+	local current_tab = { number = vim.api.nvim_tabpage_get_number(0), index = nil }
+	for index, tid in ipairs(vim.api.nvim_list_tabpages()) do
 		local file_names = {}
 		local file_paths = {}
 		local file_ids = {}
 		local window_ids = {}
+		local is_current = current_tab.number == vim.api.nvim_tabpage_get_number(tid)
 		for _, wid in ipairs(vim.api.nvim_tabpage_list_wins(tid)) do
 			local bid = vim.api.nvim_win_get_buf(wid)
 			local path = vim.api.nvim_buf_get_name(bid)
@@ -96,6 +98,9 @@ M.list_tabs = function(opts)
 			table.insert(file_paths, path)
 			table.insert(file_ids, bid)
 			table.insert(window_ids, wid)
+		end
+		if is_current then
+			current_tab.index = index
 		end
 		table.insert(res, { file_names, file_paths, file_ids, window_ids, tid })
 	end
@@ -131,6 +136,11 @@ M.list_tabs = function(opts)
 				return true
 			end,
 			previewer = opts.show_preview and conf.file_previewer {} or nil,
+			on_complete = {
+				function(picker)
+					picker:set_selection(current_tab.index - 1)
+				end,
+			},
 		})
 		:find()
 end
