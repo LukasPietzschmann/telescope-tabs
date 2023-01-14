@@ -50,7 +50,7 @@ This changes how a tab is represented in the picker. By default the following fu
 ```lua
 entry_formatter = function(tab_id, buffer_ids, file_names, file_paths, is_current)
 	local entry_string = table.concat(file_names, ', ')
-	return string.format('%d: %s', tab_id, entry_string)
+	return string.format('%d: %s%s', tab_id, entry_string, is_current and ' <' or '')
 end,
 ```
 To alter this behaviour, just assign your own function.
