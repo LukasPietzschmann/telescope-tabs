@@ -28,7 +28,7 @@ local close_tab = function(bufnr)
 	local current_picker = action_state.get_current_picker(bufnr)
 	local current_entry = action_state:get_selected_entry()
 	if vim.api.nvim_get_current_tabpage() == current_entry.value[5] then
-		print 'You cannot close the currently visible tab :('
+		vim.notify('You cannot close the currently visible tab :(', vim.log.levels.ERROR)
 		return
 	end
 	current_picker:delete_selection(function(selection)
@@ -76,7 +76,7 @@ M.go_to_previous = function()
 	if vim.api.nvim_tabpage_is_valid(last_index) then
 		vim.api.nvim_set_current_tabpage(last_index)
 	else
-		print 'No previous tab to go to'
+		vim.notify('No previous tab to go to', vim.log.levels.ERROR)
 	end
 end
 
