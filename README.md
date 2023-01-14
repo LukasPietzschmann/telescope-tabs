@@ -48,7 +48,7 @@ Options can be set by calling the setup function. The following things can be ch
 ### entry_formatter
 This changes how a tab is represented in the picker. By default the following function is used:
 ```lua
-entry_formatter = function(tab_id, buffer_ids, file_names, file_paths)
+entry_formatter = function(tab_id, buffer_ids, file_names, file_paths, is_current)
 	local entry_string = table.concat(file_names, ', ')
 	return string.format('%d: %s', tab_id, entry_string)
 end,
@@ -58,7 +58,7 @@ To alter this behaviour, just assign your own function.
 ### entry_ordinal
 This changes how tabs are sorted in the picker. The ordinal is also used to determine which entries match a given search query. The following function is used by default:
 ```lua
-entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths)
+entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current)
 	return table.concat(file_names, ' ')
 end,
 ```
