@@ -2,8 +2,9 @@
 Fly through your tabs in neovim ✈️
 
 <p align="center">
-	<img src="https://user-images.githubusercontent.com/49213919/194560309-dafa805e-3cfc-44ed-b90f-445838e2f0d8.png" width="550"  />
+	<img src="https://user-images.githubusercontent.com/49213919/216813167-45ca1908-b15f-4904-a441-6420d82dcb16.png" width="550"  />
 </p>
+
 
 ## Usage
 You can show the picker from neovim's cmd-line by executing
