@@ -44,7 +44,9 @@ use {
 }
 ```
 ## Configure
-Options can be set by calling the setup function. The following things can be changed:
+Different configurations can be seen in the [configs wiki](https://github.com/LukasPietzschmann/telescope-tabs/wiki/Configs#configs). Feel free to add your own!
+
+If you want to come up with your own config, these are the settings you can tweak:
 
 ### entry_formatter
 This changes how a tab is represented in the picker. By default the following function is used:
