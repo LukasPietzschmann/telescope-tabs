@@ -104,7 +104,7 @@ tabs.list_tabs(opts: {table})
     picker itself. See the telescope docs for more information.
     opts are directly passed to telescope.
 
-tabs.go_to_revious()
+tabs.go_to_previous()
     This function opens the last used tab immediately. This works by registering
     an auto-command for the 'TabEnter' event that keeps track of your
     tab-navigations. So this function does not only work if you switch tabs using
