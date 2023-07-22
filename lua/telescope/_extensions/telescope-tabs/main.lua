@@ -91,13 +91,16 @@ M.list_tabs = function(opts)
 		local window_ids = {}
 		local is_current = current_tab.number == vim.api.nvim_tabpage_get_number(tid)
 		for _, wid in ipairs(vim.api.nvim_tabpage_list_wins(tid)) do
-			local bid = vim.api.nvim_win_get_buf(wid)
-			local path = vim.api.nvim_buf_get_name(bid)
-			local file_name = vim.fn.fnamemodify(path, ':t')
-			table.insert(file_names, file_name)
-			table.insert(file_paths, path)
-			table.insert(file_ids, bid)
-			table.insert(window_ids, wid)
+			-- Only consider the normal windows and ignore the floating windows
+			if vim.api.nvim_win_get_config(wid).relative == "" then
+				local bid = vim.api.nvim_win_get_buf(wid)
+				local path = vim.api.nvim_buf_get_name(bid)
+				local file_name = vim.fn.fnamemodify(path, ':t')
+				table.insert(file_names, file_name)
+				table.insert(file_paths, path)
+				table.insert(file_ids, bid)
+				table.insert(window_ids, wid)
+			end
 		end
 		if is_current then
 			current_tab.index = index
