@@ -130,12 +130,8 @@ M.list_tabs = function(opts)
 					local selection = action_state.get_selected_entry()
 					vim.api.nvim_set_current_tabpage(selection.value[5])
 				end)
-				map('i', opts.close_tab_shortcut_i, function()
-					close_tab(prompt_bufnr)
-				end)
-				map('n', opts.close_tab_shortcut_n, function()
-					close_tab(prompt_bufnr)
-				end)
+				map('i', opts.close_tab_shortcut_i, close_tab)
+				map('n', opts.close_tab_shortcut_n, close_tab)
 				return true
 			end,
 			previewer = opts.show_preview and conf.file_previewer {} or nil,
