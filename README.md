@@ -2,9 +2,8 @@
 Fly through your tabs in neovim ✈️
 
 <p align="center">
-	<img src="https://user-images.githubusercontent.com/49213919/216813167-45ca1908-b15f-4904-a441-6420d82dcb16.png" width="550"  />
+	<img src="https://github.com/LukasPietzschmann/telescope-tabs/assets/49213919/e749d458-4ffd-4af2-aba9-86d0e3fb4862" width="300px" />
 </p>
-
 
 ## Usage
 You can show the picker from neovim's cmd-line by executing
@@ -18,6 +17,9 @@ Or straight from the plugin's path with lua
 ```
 
 You can press `C-d` (insert mode) or `D` (normal mode) on any Item in the picker to close the tab (respectively all windows in it). To change the keybinding, look at [configure](https://github.com/LukasPietzschmann/telescope-tabs#configure).
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/49213919/216813167-45ca1908-b15f-4904-a441-6420d82dcb16.png" width="550"  />
+</p>
 
 But `telescope-tabs` does not only provide a picker! You can also call
 ```viml
@@ -27,6 +29,7 @@ to switch to the last opened tab immediately.
 This does not only work when switching tabs with this extension, but also when you use Neovims builtin tab movement methods.
 
 I would recommend to bind this to a shortcut if you wanna use this regularly :^)
+
 
 ## Installation
 Install with your favorite Neovim package manager.
