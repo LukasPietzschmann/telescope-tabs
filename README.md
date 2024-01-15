@@ -34,6 +34,20 @@ I would recommend to bind this to a shortcut if you wanna use this regularly :^)
 ## Installation
 Install with your favorite Neovim package manager.
 
+Example with lazy.nvim:
+```lua
+{
+	'LukasPietzschmann/telescope-tabs',
+	config = function()
+		require('telescope').load_extension 'telescope-tabs'
+		require('telescope-tabs').setup {
+			-- Your custom config :^)
+		}
+	end,
+	dependencies = { 'nvim-telescope/telescope.nvim' },
+}
+```
+
 Example with packer.nvim:
 ```lua
 use {
