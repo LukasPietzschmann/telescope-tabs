@@ -61,23 +61,27 @@ M.setup = function(opts)
 	normalize(opts, M.conf)
 end
 
-local current_index = vim.api.nvim_get_current_tabpage()
-local last_index = current_index
+local visible_tab = vim.api.nvim_get_current_tabpage()
+local tab_stack = {}
 
 vim.api.nvim_create_autocmd('TabEnter', {
 	group = vim.api.nvim_create_augroup('WatchTabs', { clear = true }),
 	callback = function()
-		last_index = current_index
-		current_index = vim.api.nvim_get_current_tabpage()
+		table.insert(tab_stack, visible_tab)
+		visible_tab = vim.api.nvim_get_current_tabpage()
 	end,
 })
 
 M.go_to_previous = function()
-	if vim.api.nvim_tabpage_is_valid(last_index) then
-		vim.api.nvim_set_current_tabpage(last_index)
-	else
-		vim.notify('No previous tab to go to', vim.log.levels.ERROR)
+	local last_tab = table.remove(tab_stack)
+	while last_tab ~= nil and not vim.api.nvim_tabpage_is_valid(last_tab) do
+		last_tab = table.remove(tab_stack)
 	end
+	if last_tab == nil then
+		vim.notify('No previous tab to go to', vim.log.levels.ERROR)
+		return
+	end
+	vim.api.nvim_set_current_tabpage(last_tab)
 end
 
 M.list_tabs = function(opts)
