@@ -28,6 +28,8 @@ But `telescope-tabs` does not only provide a picker! You can also call
 to switch to the last opened tab immediately.
 This does not only work when switching tabs with this extension, but also when you use Neovims builtin tab movement methods.
 
+This plugin improves upon the already present `g<Tab>` shortcut by keeping track of a "last shown tab stack". Consequently, if you close the most previously visited tab, `g<Tab>` will fail. However, telescope-tabs will happily show the second last tab.
+
 I would recommend to bind this to a shortcut if you wanna use this regularly :^)
 
 
