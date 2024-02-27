@@ -5,6 +5,9 @@ Fly through your tabs in neovim ✈️
 	<img src="https://github.com/LukasPietzschmann/telescope-tabs/assets/49213919/e749d458-4ffd-4af2-aba9-86d0e3fb4862" width="300px" />
 </p>
 
+## Important Note
+If you don't want to use telescope, there's also a version using `vim.ui.select` instead of telescope. Checkout the [`vim_ui_select`](https://github.com/LukasPietzschmann/telescope-tabs/tree/vim_ui_select) branch :)
+
 ## Usage
 You can show the picker from neovim's cmd-line by executing
 ```
