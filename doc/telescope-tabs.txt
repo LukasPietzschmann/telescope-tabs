@@ -10,7 +10,7 @@ INTRODUCTION                                                  *telescope-tabs*
 telescope-tabs is a small extension for telescope.nvim. It makes it more
 convenient to switch between tabs in a fast way.
 Additionally you can switch back to your last used tab immediately, without
-having to open the telescope-picker.
+having to select it manually.
 Note that this extension wont work well with buffer-line extensions, as it
 does not show single buffers (like :Telescope buffers does). Only "real" tabs
 are displayed!
@@ -22,8 +22,8 @@ Call the setup function with a table as the argument to override the default
 configuration.
 
 require'telescope-tabs'.setup {
-    -- This function is used to convert a tab to a string that is then
-    -- displayed in telescopes picker
+    -- This function is used to convert a tab to a string that can then be
+    -- displayed and selected
     -- tab_id: id of the tab. This id can be passed to neovims api in order
     --         to get information about the tab.
     -- buffer_ids: A list of ids for every buffer opened in the tab. Those
@@ -42,51 +42,21 @@ require'telescope-tabs'.setup {
         local entry_string = table.concat(file_names, ', ')
         return string.format('%d: %s%s', tab_id, entry_string, is_current and ' <' or '')
     end,
-
-    -- This function is used to convert a tab to a string that is then
-    -- used to sort all entries. The string is also used to determine if
-    -- if a tab matches a given search query.
-    -- tab_id: id of the tab. This id can be passed to neovims api in order
-    --         to get information about the tab.
-    -- buffer_ids: A list of ids for every buffer opened in the tab. Those
-    --             ids can be passed to neovims api in order to get
-    --             information about the buffer.
-    -- file_names: A list of names (strings) for every buffer opened in the
-    --             tab.
-    -- file_paths: A list of paths (strings) for every buffer opened in the
-    --             tab.
-    -- is_current: Boolean value, true if it is the current tab.
-    --
-    -- buffer_ids, file_names and file_paths contain their information in
-    -- the same order. So buffer_ids[1], file_names[1] and file_paths[1]
-    -- refer to the same buffer.
-    entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current)
-        return table.concat(file_names, ' ')
-    end,
-
-    -- This boolean value controls whether telescopes previewer is shown, or
-    -- not.
-    show_preview = true,
-
-    -- These shortcuts can be pressed to close the selected tab (and all buffers
-    -- opened in it). Their values have to be valid neovim-shortcuts.
-    close_tab_shortcut_i = '<C-d>', -- if you're in insert mode
-    close_tab_shortcut_n = 'D',     -- if you're in normal mode
 }
 
 ==============================================================================
 USAGE                                                   *telescope-tabs-usage*
 
-:Telescope telescope-tabs list_tabs                                *list_tabs*
-This opens the telescope picker that displays all currently opened tabs.
-You can pass arguments passed to this function in order to configure the picker
-itself. See the telescope docs for more information.
+:lua require('telescope-tabs').list_tabs()                         *list_tabs*
+This lets you select a tab from all currently opened tabs.
+You can pass arguments to this function in order to overwrite the global
+configuration.
 
 :lua require('telescope-tabs').go_to_previous()                *go_to_previous*
 This function opens the last used tab immediately. This works by registering an
 auto-command for the 'TabEnter' event that keeps track of your tab-navigations.
-So this function does not only work if you switch tabs using the picker, it
-also functions just fine when navigating using neovims tab movement methods.
+So this function does not only work if you switch tabs using this extension, it
+also functions just fine when navigating using NeoVim's tab movement methods.
 
 ==============================================================================
 API                                                        *telescope-tabs-api*
@@ -99,14 +69,13 @@ tabs.setup(opts: {table})
     See configuration
 
 tabs.list_tabs(opts: {table})
-    This opens the telescope picker that displays all currently opened tabs.
-    You can pass arguments passed to this function in order to configure the
-    picker itself. See the telescope docs for more information.
-    opts are directly passed to telescope.
+    This lets you select a tab from all currently opened tabs.
+    You can pass arguments to this function in order to overwrite the global
+    configuration.
 
 tabs.go_to_previous()
     This function opens the last used tab immediately. This works by registering
     an auto-command for the 'TabEnter' event that keeps track of your
-    tab-navigations. So this function does not only work if you switch tabs using
-    the picker, it also functions just fine when navigating using neovims tab
-    movement methods.
+    tab-navigations. So this function does not only work if you switch tabs
+    using this extension, it also functions just fine when navigating using
+    NeoVim's tab movement methods.
