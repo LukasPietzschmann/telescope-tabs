@@ -130,8 +130,12 @@ M.list_tabs = function(opts)
 			sorter = conf.generic_sorter {},
 			attach_mappings = function(prompt_bufnr, map)
 				actions.select_default:replace(function()
-					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
+					if not selection then
+						vim.notify('No matching tab found', vim.log.levels.WARN)
+						return
+					end
+					actions.close(prompt_bufnr)
 					vim.api.nvim_set_current_tabpage(selection.value[5])
 				end)
 				map('i', opts.close_tab_shortcut_i, close_tab)
