@@ -81,7 +81,7 @@ end,
 To alter this behaviour, just assign your own function.
 
 ### entry_ordinal
-This changes how tabs are sorted in the picker. The ordinal is also used to determine which entries match a given search query. The following function is used by default:
+This changes what queries a tab matches. The following function is used by default:
 ```lua
 entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths, is_current)
 	return table.concat(file_names, ' ')

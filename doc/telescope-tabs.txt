@@ -44,8 +44,7 @@ require'telescope-tabs'.setup {
     end,
 
     -- This function is used to convert a tab to a string that is then
-    -- used to sort all entries. The string is also used to determine if
-    -- if a tab matches a given search query.
+    -- used determine if a tab matches a given search query.
     -- tab_id: id of the tab. This id can be passed to neovims api in order
     --         to get information about the tab.
     -- buffer_ids: A list of ids for every buffer opened in the tab. Those
