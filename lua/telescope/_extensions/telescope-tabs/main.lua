@@ -43,6 +43,7 @@ local M = {
 }
 
 local default_conf = {
+  sort_function = nil,
 	entry_formatter = function(tab_id, buffer_ids, file_names, file_paths, is_current)
 		local entry_string = table.concat(file_names, ', ')
 		return string.format('%d: %s%s', tab_id, entry_string, is_current and ' <' or '')
@@ -111,6 +112,11 @@ M.list_tabs = function(opts)
 		end
 		table.insert(res, { file_names, file_paths, file_ids, window_ids, tid, is_current })
 	end
+  if opts.sort_function ~= nil then
+    table.sort(res, function(a, b)
+      return opts.sort_function(a[5], a[3], a[1], a[2], a[6], b[5], b[3], b[1], b[2], b[6])
+    end)
+  end
 	pickers
 		.new(opts, {
 			prompt_title = 'Tabs',
